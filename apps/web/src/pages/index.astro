@@ -1,0 +1,56 @@
+---
+import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Logo from '@/components/atoms/logo';
+import FullscreenLayout from '@/components/templates/fullscreen.astro';
+import { DownloadExtension } from '@/components/molecules/download-extension';
+---
+
+<FullscreenLayout>
+  <div class="flex flex-col items-center justify-center gap-8">
+    <Logo />
+    <div class="flex items-end gap-2">
+      <h1 class="text-4xl">LGamila is still cooking</h1>
+      <div class="flex flex-row gap-2">
+        <div
+          class="h-2 w-2 bg-foreground animate-bounce [animation-delay:-0.3s]"
+        >
+        </div>
+        <div
+          class="h-2 w-2 bg-foreground animate-bounce [animation-delay:-0.15s]"
+        >
+        </div>
+        <div class="h-2 w-2 bg-foreground animate-bounce"></div>
+      </div>
+    </div>
+
+    <Separator className="max-w-xs" />
+    <p class="font-plain text-center">
+      While we prepare the platform, you can follow us on <a
+        href="https://x.com/stormix_dev"
+        target="_blank"
+        class="text-accent">X</a
+      > or check out one of our projects:
+    </p>
+
+    <div class="flex justify-center text-center">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-2xl"> LGamila Live Extension </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <img
+            src="/lgamila-live.svg"
+            alt="LGamila Live"
+            class="size-32 mx-auto mb-4"
+          />
+          <p class="max-w-md text-start">
+            A Chrome extension that shows you a real-time list of all Moroccan
+            Twitch and Kick streamers who are currently live.
+          </p>
+          <DownloadExtension client:only="react" />
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</FullscreenLayout>

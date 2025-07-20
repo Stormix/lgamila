@@ -70,5 +70,29 @@
         "noUndeclaredVariables": "off"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "assist": {
+        "actions": {
+          "source": {
+            "organizeImports": "off"
+          }
+        }
+      },
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    }
+  ]
 }
