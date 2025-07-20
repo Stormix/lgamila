@@ -1,0 +1,1 @@
+ALTER TABLE "streamer" ALTER COLUMN "approved" SET DEFAULT false;

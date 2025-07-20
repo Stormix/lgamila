@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import Footer from '../molecules/footer';
+import { Toaster } from '../ui/sonner';
 ---
 
 <html lang="en" class="dark">
@@ -20,11 +21,11 @@ import Footer from '../molecules/footer';
 		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
 	</head>
-	<body class="flex h-screen w-screen flex-col items-center justify-center">
+	<body class="flex h-screen w-screen flex-col items-center justify-center overflow-x-hidden">
     <main class="flex flex-col items-center justify-center flex-grow container">
       <slot /> 
     </main>
 	<Footer />
-
+	<Toaster client:only="react" />
 	</body>
 </html>

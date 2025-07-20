@@ -1,5 +1,5 @@
 import { zValidator } from '@hono/zod-validator';
-import { desc, ilike, isNotNull, or } from 'drizzle-orm';
+import { and, desc, eq, ilike, isNotNull, or, type SQL } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import cache from '@/lib/cache/default';
@@ -34,6 +34,26 @@ const api = new Hono<ApiContext>()
         });
       }
 
+      // Build the where condition with approved filter
+      const conditions: SQL[] = [eq(streamer.approved, true)];
+
+      if (search && platform) {
+        const searchCondition =
+          platform === 'twitch'
+            ? ilike(streamer.twitchUsername, `${search}`)
+            : ilike(streamer.kickUsername, `${search}`);
+        conditions.push(searchCondition);
+      } else if (search) {
+        conditions.push(
+          // biome-ignore lint/style/noNonNullAssertion: DO NOT CARE
+          or(
+            ilike(streamer.name, `${search}`),
+            ilike(streamer.twitchUsername, `${search}`),
+            ilike(streamer.kickUsername, `${search}`)
+          )!
+        );
+      }
+
       const streamers = await db.query.streamer.findMany({
         columns: {
           id: true,
@@ -47,18 +67,7 @@ const api = new Hono<ApiContext>()
           category: true,
           title: true,
         },
-        where:
-          search && platform
-            ? platform === 'twitch'
-              ? ilike(streamer.twitchUsername, `${search}`)
-              : ilike(streamer.kickUsername, `${search}`)
-            : search
-              ? or(
-                  ilike(streamer.name, `${search}`),
-                  ilike(streamer.twitchUsername, `${search}`),
-                  ilike(streamer.kickUsername, `${search}`)
-                )
-              : undefined,
+        where: and(...conditions),
         orderBy: [desc(streamer.isLive), desc(streamer.viewerCount)],
       });
 
@@ -79,13 +88,13 @@ const api = new Hono<ApiContext>()
       });
     }
 
-    // Return streamers that have both a twitch and kick username
+    // Return streamers that have both a twitch and kick username AND are approved
     const streamers = await db.query.streamer.findMany({
-      where: (streamer, { and }) =>
-        and(
-          isNotNull(streamer.twitchUsername),
-          isNotNull(streamer.kickUsername)
-        ),
+      where: and(
+        eq(streamer.approved, true),
+        isNotNull(streamer.twitchUsername),
+        isNotNull(streamer.kickUsername)
+      ),
     });
 
     await cache.set('streamers-multi', JSON.stringify(streamers));
@@ -93,6 +102,44 @@ const api = new Hono<ApiContext>()
     return c.json({
       streamers,
     });
-  });
+  })
+  .post(
+    '/streamers/suggest',
+    zValidator(
+      'json',
+      z.object({
+        name: z.string(),
+        twitchUsername: z.string(),
+        kickUsername: z.string(),
+      })
+    ),
+    async (c) => {
+      const { name, twitchUsername, kickUsername } = await c.req.json();
+
+      try {
+        await db
+          .insert(streamer)
+          .values({
+            name: name.trim().toLowerCase(),
+            twitchUsername: twitchUsername.trim().toLowerCase(),
+            kickUsername: kickUsername.trim().toLowerCase(),
+            approved: false,
+          })
+          .onConflictDoNothing();
+
+        return c.json({
+          message: 'Streamer suggested',
+        });
+      } catch (error) {
+        logger.withError(error).error('Failed to suggest streamer');
+        return c.json(
+          {
+            message: 'Failed to suggest streamer',
+          },
+          500
+        );
+      }
+    }
+  );
 
 export default api;

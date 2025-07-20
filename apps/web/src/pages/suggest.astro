@@ -1,0 +1,42 @@
+---
+import FullscreenLayout from '@/components/templates/fullscreen.astro';
+import SuggestStreamerForm from '@/components/molecules/suggest-streamer-form';
+import { Button } from '@/components/ui/button';
+import { MdKeyboardArrowLeft } from 'react-icons/md';
+---
+
+<FullscreenLayout>
+  <div class="flex flex-col items-center justify-center gap-8 py-4">
+    <div class="flex flex-col items-center gap-4">
+      <img src="/lgamila-live.svg" alt="LGamila Logo" class="size-60" />
+      <div class="text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">
+          Suggest a Moroccan Streamer
+        </h1>
+        <p class="text-muted-foreground max-w-2xl">
+          Know a talented Moroccan streamer who should be featured in our
+          extension? Help us build the most comprehensive list of Moroccan
+          content creators!
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center gap-4 flex-grow">
+      <SuggestStreamerForm client:load />
+      <div class="flex flex-col items-center gap-4 text-center">
+        <div class="flex gap-4">
+          <a href="/">
+            <Button variant="outline">
+              <MdKeyboardArrowLeft /> Back to Home
+            </Button>
+          </a>
+        </div>
+        <p class="text-sm text-muted-foreground max-w-md">
+          All suggestions are manually reviewed. We'll reach out if we need
+          additional information about the streamer you've suggested.
+        </p>
+      </div>
+    </div>
+  </div>
+</FullscreenLayout>
+

@@ -50,6 +50,7 @@ export const streamer = pgTable(
     viewerCount: integer('viewer_count').default(0),
     category: text('category'),
     title: text('title'),
+    approved: boolean('approved').default(false),
     ...timestamps,
   },
   (table) => [
