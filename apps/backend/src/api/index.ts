@@ -1,5 +1,14 @@
 import { zValidator } from '@hono/zod-validator';
-import { and, desc, eq, ilike, isNotNull, or, type SQL } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  desc,
+  eq,
+  ilike,
+  isNotNull,
+  or,
+  type SQL,
+} from 'drizzle-orm';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import cache from '@/lib/cache/default';
@@ -68,7 +77,11 @@ const api = new Hono<ApiContext>()
           title: true,
         },
         where: and(...conditions),
-        orderBy: [desc(streamer.isLive), desc(streamer.viewerCount)],
+        orderBy: [
+          desc(streamer.isLive),
+          desc(streamer.viewerCount),
+          asc(streamer.name),
+        ],
       });
 
       await cache.set(cacheKey, JSON.stringify(streamers));
