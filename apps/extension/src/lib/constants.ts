@@ -2,7 +2,7 @@ export const APP_NAME = 'LGamila Live';
 export const APP_VERSION = '0.0.1';
 export const APP_DESCRIPTION =
   'This extension shows you a real-time list of all Moroccan Twitch and Kick streamers who are currently live.';
-export const APP_AUTHOR = 'Stormix <hello@moroccan-stream.dev>';
+export const APP_AUTHOR = 'Stormix <hello@s.dev>';
 
 export const API_URL =
   process.env.NODE_ENV === 'development'

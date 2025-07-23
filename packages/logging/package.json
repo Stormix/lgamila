@@ -1,5 +1,5 @@
 {
-  "name": "@moroccan-stream/logging",
+  "name": "@lgamila/logging",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
     "check-types": "tsc --noEmit --skipLibCheck"
   },
   "devDependencies": {
-    "@moroccan-stream/typescript-config": "workspace:*",
+    "@lgamila/typescript-config": "workspace:*",
     "@types/lodash": "^4.17.16",
     "@types/logfmt": "^1.2.6"
   },

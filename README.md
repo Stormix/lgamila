@@ -1,6 +1,6 @@
 # LGamila Stream Platform
 
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/stormix/moroccan-stream)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/stormix/lgamila)
 
 <div align="center">
 
@@ -10,7 +10,7 @@
 
 A comprehensive platform for discovering and tracking Moroccan streamers on Twitch and Kick, featuring a browser extension, web platform, and robust backend API.
 
-[Download Extension](#browser-extension) · [Report Bug](https://github.com/stormix/moroccan-stream/issues) · [Request Feature](https://github.com/stormix/moroccan-stream/issues)
+[Download Extension](#browser-extension) · [Report Bug](https://github.com/stormix/lgamila/issues) · [Request Feature](https://github.com/stormix/lgamila/issues)
 
 </div>
 
@@ -61,9 +61,9 @@ This monorepo includes the following packages/apps:
 
 ### Packages
 
-- `@moroccan-stream/shared`: Shared utilities and type definitions
-- `@moroccan-stream/logging`: Structured logging with context support and Sentry integration
-- `@moroccan-stream/typescript-config`: TypeScript configurations
+- `@lgamila/shared`: Shared utilities and type definitions
+- `@lgamila/logging`: Structured logging with context support and Sentry integration
+- `@lgamila/typescript-config`: TypeScript configurations
 
 ## Getting Started
 
@@ -80,8 +80,8 @@ This monorepo includes the following packages/apps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/stormix/moroccan-stream.git
-   cd moroccan-stream
+   git clone https://github.com/stormix/lgamila.git
+   cd lgamila
    ```
 
 2. **Install dependencies:**
@@ -142,7 +142,7 @@ The backend provides a REST API for accessing streamer data:
 
 #### Download Pre-built Extension
 
-You can also download pre-built extension files from our [GitHub Releases](https://github.com/stormix/moroccan-stream/releases).
+You can also download pre-built extension files from our [GitHub Releases](https://github.com/stormix/lgamila/releases).
 
 ### Web Platform
 
@@ -161,7 +161,7 @@ Extension releases are automatically built and published via GitHub Actions. Eac
 
 ### Download Latest Release
 
-Visit our [GitHub Releases page](https://github.com/stormix/moroccan-stream/releases) to download the latest extension builds.
+Visit our [GitHub Releases page](https://github.com/stormix/lgamila/releases) to download the latest extension builds.
 
 ### Creating Releases
 
@@ -199,7 +199,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Stormix** - [@stormix_dev](https://twitter.com/stormix_dev) - hello@stormix.dev
 
-**Project Link**: [https://github.com/stormix/moroccan-stream](https://github.com/stormix/moroccan-stream)
+**Project Link**: [https://github.com/stormix/lgamila](https://github.com/stormix/lgamila)
 
 ## Acknowledgments
 

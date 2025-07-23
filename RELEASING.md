@@ -29,7 +29,7 @@ The project includes an automated GitHub Actions workflow that builds the browse
 
 #### Via Manual Trigger
 
-1. Go to the [Actions tab](https://github.com/stormix/moroccan-stream/actions) on GitHub
+1. Go to the [Actions tab](https://github.com/stormix/lgamila/actions) on GitHub
 2. Select the "Release Extension" workflow
 3. Click "Run workflow"
 4. Enter the version (e.g., `v1.0.1`)

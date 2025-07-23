@@ -1,5 +1,5 @@
 {
-  "name": "@moroccan-stream/shared",
+  "name": "@lgamila/shared",
   "module": "src/index.ts",
   "type": "module",
   "exports": {

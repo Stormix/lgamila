@@ -1,5 +1,5 @@
 {
-  "extends": "@moroccan-stream/typescript-config/bun.json",
+  "extends": "@lgamila/typescript-config/bun.json",
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }

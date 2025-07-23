@@ -1,4 +1,4 @@
-# `@moroccan-stream/logging`
+# `@lgamila/logging`
 
 A shared logging package that provides structured logging with context support, error handling, and request-scoped logging.
 
@@ -10,7 +10,7 @@ The logging format depends on the `NODE_ENV` environment variable.
 ## Installation
 
 ```bash
-pnpm add @moroccan-stream/logging
+pnpm add @lgamila/logging
 ```
 
 ## Basic logging
@@ -128,7 +128,7 @@ The logger supports request-scoped context using AsyncLocalStorage. This allows 
 ### Setup
 
 ```ts
-import { createAppLogger, createLoggerContext } from "@moroccan-stream/logging";
+import { createAppLogger, createLoggerContext } from "@lgamila/logging";
 
 export const loggerContext = createLoggerContext();
 

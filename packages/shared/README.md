@@ -1,4 +1,4 @@
-# @moroccan-stream/shared
+# @lgamila/shared
 
 To install dependencies:
 

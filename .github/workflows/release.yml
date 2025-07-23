@@ -126,7 +126,7 @@ jobs:
             - Clean, modern interface
 
             ### 🐛 Bug Reports
-            If you encounter any issues, please [report them here](https://github.com/stormix/moroccan-stream/issues).
+            If you encounter any issues, please [report them here](https://github.com/stormix/lgamila/issues).
           files: |
             apps/extension/releases/lgamila-live-${{ steps.version.outputs.version }}-chrome.zip
             apps/extension/releases/lgamila-live-${{ steps.version.outputs.version }}-firefox.zip

@@ -1,4 +1,4 @@
-import type { Logger } from '@moroccan-stream/logging';
+import type { Logger } from '@lgamila/logging';
 import { ApiClient } from '@twurple/api';
 import { AppTokenAuthProvider } from '@twurple/auth';
 import { err, ok } from 'neverthrow';

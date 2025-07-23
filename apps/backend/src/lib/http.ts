@@ -1,4 +1,4 @@
-import type { Logger } from '@moroccan-stream/logging';
+import type { Logger } from '@lgamila/logging';
 import * as Sentry from '@sentry/node';
 import axios, {
   AxiosError,
