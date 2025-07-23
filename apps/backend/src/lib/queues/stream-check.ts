@@ -14,7 +14,7 @@ export const scheduleStreamCheckQueue = new Queue(
 );
 
 await scheduleStreamCheckQueue.upsertJobScheduler(JobName.ScheduleStreamCheck, {
-  every: 1000 * 60 * 5,
+  every: 1000 * 30,
 });
 
 // Set the max listeners for the queues
