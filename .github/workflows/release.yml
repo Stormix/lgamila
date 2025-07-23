@@ -1,0 +1,148 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., v1.0.0)"
+        required: true
+        type: string
+
+jobs:
+  build-and-release:
+    name: Build Extension and Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build extension for Chrome (MV3)
+        run: |
+          cd apps/extension
+          pnpm build --target=chrome-mv3
+
+      - name: Build extension for Firefox
+        run: |
+          cd apps/extension
+          pnpm build --target=firefox-mv2
+
+      - name: Package Chrome extension
+        run: |
+          cd apps/extension
+          pnpm package --target=chrome-mv3
+
+      - name: Package Firefox extension
+        run: |
+          cd apps/extension
+          pnpm package --target=firefox-mv2
+
+      - name: Get version from tag or input
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Rename build artifacts
+        run: |
+          cd apps/extension
+          # Create releases directory
+          mkdir -p releases
+
+          # Copy and rename Chrome build
+          if [ -f "build/chrome-mv3-prod.zip" ]; then
+            cp "build/chrome-mv3-prod.zip" "releases/lgamila-live-${{ steps.version.outputs.version }}-chrome.zip"
+          fi
+
+          # Copy and rename Firefox build  
+          if [ -f "build/firefox-mv2-prod.zip" ]; then
+            cp "build/firefox-mv2-prod.zip" "releases/lgamila-live-${{ steps.version.outputs.version }}-firefox.zip"
+          fi
+
+          # List created files for verification
+          ls -la releases/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: LGamila Live ${{ steps.version.outputs.version }}
+          body: |
+            ## LGamila Live Extension ${{ steps.version.outputs.version }}
+
+            Download the extension for your browser:
+
+            ### 🌟 Chrome Extension
+            - Download: `lgamila-live-${{ steps.version.outputs.version }}-chrome.zip`
+            - Install: Unzip and load as unpacked extension in Chrome Developer Mode
+
+            ### 🦊 Firefox Extension  
+            - Download: `lgamila-live-${{ steps.version.outputs.version }}-firefox.zip`
+            - Install: Load as temporary add-on in Firefox about:debugging
+
+            ### 📋 Installation Instructions
+
+            #### Chrome:
+            1. Download the Chrome zip file
+            2. Unzip the file to a folder
+            3. Open Chrome and go to `chrome://extensions/`
+            4. Enable "Developer mode" in the top right
+            5. Click "Load unpacked" and select the unzipped folder
+
+            #### Firefox:
+            1. Download the Firefox zip file
+            2. Unzip the file to a folder
+            3. Open Firefox and go to `about:debugging`
+            4. Click "This Firefox" on the left
+            5. Click "Load Temporary Add-on" and select the manifest.json from the unzipped folder
+
+            ### 🚀 Features
+            - Real-time tracking of Moroccan streamers on Twitch and Kick
+            - Live notification when streamers go online
+            - Search and filter functionality
+            - Clean, modern interface
+
+            ### 🐛 Bug Reports
+            If you encounter any issues, please [report them here](https://github.com/stormix/moroccan-stream/issues).
+          files: |
+            apps/extension/releases/lgamila-live-${{ steps.version.outputs.version }}-chrome.zip
+            apps/extension/releases/lgamila-live-${{ steps.version.outputs.version }}-firefox.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Chrome artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chrome-extension
+          path: apps/extension/releases/lgamila-live-${{ steps.version.outputs.version }}-chrome.zip
+
+      - name: Upload Firefox artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefox-extension
+          path: apps/extension/releases/lgamila-live-${{ steps.version.outputs.version }}-firefox.zip

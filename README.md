@@ -25,10 +25,11 @@ A comprehensive platform for discovering and tracking Moroccan streamers on Twit
    - [Prerequisites](#prerequisites)
    - [Installation](#installation)
 5. [Usage](#usage)
-6. [Contributing](#contributing)
-7. [License](#license)
-8. [Contact](#contact)
-9. [Acknowledgments](#acknowledgments)
+6. [Releases](#releases)
+7. [Contributing](#contributing)
+8. [License](#license)
+9. [Contact](#contact)
+10. [Acknowledgments](#acknowledgments)
 
 ## About the Project
 
@@ -133,9 +134,15 @@ The backend provides a REST API for accessing streamer data:
 
 ### Browser Extension
 
-1. Build the extension: `pnpm --filter extension build`
-2. Load the extension in Chrome from `apps/extension/build/chrome-mv3-prod`
+1. Build the extension: `pnpm --filter extension build:all`
+2. Load the extension in your browser:
+   - **Chrome**: Load from `apps/extension/build/chrome-mv3-prod`
+   - **Firefox**: Load from `apps/extension/build/firefox-mv2-prod`
 3. The extension will show live Moroccan streamers in the popup
+
+#### Download Pre-built Extension
+
+You can also download pre-built extension files from our [GitHub Releases](https://github.com/stormix/moroccan-stream/releases).
 
 ### Web Platform
 
@@ -144,6 +151,21 @@ Visit the web platform to:
 - Discover new Moroccan streamers
 - Suggest streamers to be added to the platform
 - Learn about the project
+
+## Releases
+
+Extension releases are automatically built and published via GitHub Actions. Each release includes:
+
+- **Chrome Extension** (Manifest V3) - Compatible with Chrome, Edge, and Chromium browsers
+- **Firefox Extension** (Manifest V2) - Compatible with Firefox
+
+### Download Latest Release
+
+Visit our [GitHub Releases page](https://github.com/stormix/moroccan-stream/releases) to download the latest extension builds.
+
+### Creating Releases
+
+For maintainers, see [RELEASING.md](RELEASING.md) for detailed release instructions.
 
 ## Contributing
 
